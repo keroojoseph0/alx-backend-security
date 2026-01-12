@@ -1,5 +1,6 @@
 from datetime import datetime
-from .models import RequestLog
+from django.http import HttpResponseForbidden
+from .models import RequestLog, BlockedIP
 
 class RequestLoggingMiddleware:
     def __init__(self, get_response):
@@ -18,6 +19,9 @@ class RequestLoggingMiddleware:
             timestamp = datetime.now(),
             path = request.path
         )
+
+        if BlockedIP.objects.filter(ip_address = request.client_ip).exists():
+            return HttpResponseForbidden("403 Forbidden")
 
         response = self.get_response(request)
 
