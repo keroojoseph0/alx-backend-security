@@ -129,3 +129,8 @@ CACHES = {
 
 
 IPGEOLOCATION_API_KEY = 'dac57238bd014a32b0f8c17650a8022a'
+
+
+# Rate Limiting
+
+RATELIMIT_USE_CACHE = 'default'
